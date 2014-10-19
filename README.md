@@ -2,3 +2,5 @@ Scala-NeuralNet
 ===============
 
 Scala framework for neural networks
+
+This is a framework for testing and learning neural network architectures in scala. The main goal is to also help myself learn scala so this will be an evolving project that will hopefully use the language to its full abilities.
