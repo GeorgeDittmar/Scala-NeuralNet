@@ -3,10 +3,10 @@ package com.nn.Examples
 import com.nn.NNetwork
 
 /**
+ * Example perceptron learning algorithm using the Scala-NeuralNetwork framework
  * Created by george on 10/19/14.
  */
 object PerceptronExample extends App{
-  println("Hello World")
 
   var perceptron = new NNetwork()
 
@@ -14,8 +14,11 @@ object PerceptronExample extends App{
   perceptron.createInputLayer(784)
   perceptron.createOutputLayer(1)
 
+  // creates the initial random weights in the network
   perceptron.init()
 
-  println("Perceptron initialized")
+  perceptron.inputTraining(null,"")
+  perceptron.inputTest(null,"")
 
+  println("Perceptron initialized")
 }
