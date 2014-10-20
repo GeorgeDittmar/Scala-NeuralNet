@@ -14,7 +14,7 @@ class HiddenLayers {
    */
   def createHiddenLayer(numUnits: Int): ArrayBuffer[Neuron] ={
     val layer = new ArrayBuffer[Neuron]()
-    for(x <- numUnits){
+    for(x <- 0 to numUnits){
       layer.+=(new Neuron)
     }
     return layer

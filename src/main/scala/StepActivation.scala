@@ -6,8 +6,8 @@ trait StepActivation {
   //Calculates the activation of a neuron given a list of inputs and a list of weights
   def stepActivation(x: List[Double],w: List[Double], threshold:Double): Double ={
     // perform the dot product by sum x_i*w_i
-    var act = 0;
-    for (elm <-x.length){
+    var act = 0.0;
+    for (elm <-0 to x.length){
        act += (x(elm) * w(elm))
     }
 
