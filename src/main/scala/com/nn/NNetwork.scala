@@ -79,16 +79,14 @@ class NNetwork {
   }
 
   /**
-   * Initializes a new network given a random set of weights on each edge between the nodes between -1 and 1
+   * Initializes a new network with a random set of weights between -1 and 1
    */
   def init(): Unit = {
     for (layer <- neurons) {
-      // weights are mutable data until the training is complete
+      // weights are mutable data until the training of the network is compelte
       var weight = Vector.fill(layer.length)((Random.nextDouble() * 1) + -1)
       weights.+=(weight)
     }
-
-    println("Perceptron initialized with random weights")
   }
 
 }

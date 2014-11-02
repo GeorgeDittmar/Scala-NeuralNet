@@ -1,6 +1,10 @@
 package com.nn.Examples
 
+import java.io.FileInputStream
+
 import com.nn.NNetwork
+
+import scala.io.BufferedSource
 
 /**
  * Example perceptron learning algorithm using the Scala-NeuralNetwork framework
@@ -17,8 +21,14 @@ object PerceptronExample extends App{
   // creates the initial random weights in the network
   perceptron.init()
 
-  perceptron.inputTraining(null,"")
-  perceptron.inputTest(null,"")
+  println("Reading in training and testing data sets...")
+
+  //TODO - change to use the scala Source lib
+  perceptron.inputTraining(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/train.csv")),",")
+  perceptron.inputTest(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/test.csv")),",")
+
+  perceptron.inputTesting;
 
   println("Perceptron initialized")
+
 }
