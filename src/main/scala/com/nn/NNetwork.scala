@@ -19,8 +19,8 @@ class NNetwork {
   val weights = scala.collection.mutable.ArrayBuffer[Vector[Double]]()
 
   // Input to the network. This can be either training or testing data
-  val inputTraining = ArrayBuffer[Array[String]]()
-  val inputTesting = ArrayBuffer[Array[String]]()
+  val inputTraining = ArrayBuffer[Array[Int]]()
+  val inputTesting = ArrayBuffer[Array[Int]]()
 
   /**
    * Create the input layer of the network with the given number of neurons. We add one extra neuron at the end as a bias
@@ -62,19 +62,31 @@ class NNetwork {
   }
 
   /**
-   * Input the training data to be read by the network. This function currently assumes the data is a csv
+   * Input the training/testing data to be read by the network. This function currently assumes the data is a csv
    */
   def inputTraining(data: BufferedSource, delim: String): Unit = {
     val iter = data.getLines().drop(1).map(_.split(delim))
+
+    // read in each example and convert to integer arrays
     while(iter.hasNext){
-      inputTraining.+=(iter.next())
+      try {
+        val example: Array[Int] = iter.next().map(_.toInt)
+        inputTraining.+=(example)
+      }catch{
+        case numFE: NumberFormatException => {
+          println("Failed to load example...")
+        }
+        case ex: Exception => println("Some error has happend reading input data")
+      }
     }
   }
 
   def inputTest(data: BufferedSource, delim: String): Unit ={
     val iter = data.getLines().drop(1).map(_.split(delim))
+    // read in each example and convert to integer arrays
     while(iter.hasNext){
-      inputTesting.+=(iter.next())
+      val example: Array[Int] = iter.next().map(_.toInt)
+      inputTesting.+=(example)
     }
   }
 

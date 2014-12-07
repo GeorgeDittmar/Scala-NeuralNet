@@ -2,7 +2,7 @@ package com.nn.Examples
 
 import java.io.FileInputStream
 
-import com.nn.NNetwork
+import com.nn.{PerceptronLearningTrait, NNetwork}
 
 import scala.io.BufferedSource
 
@@ -12,7 +12,7 @@ import scala.io.BufferedSource
  */
 object PerceptronExample extends App{
 
-  var perceptron = new NNetwork()
+  var perceptron = new NNetwork() with PerceptronLearningTrait
 
   // simple perceptron with an input layer and one output layer
   perceptron.createInputLayer(784)
@@ -27,8 +27,10 @@ object PerceptronExample extends App{
   perceptron.inputTraining(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/train.csv")),",")
   perceptron.inputTest(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/test.csv")),",")
 
-  perceptron.inputTesting;
-
   println("Perceptron initialized")
+
+  // set the learning rate with the given number of epochs
+  perceptron.learn(100)
+
 
 }
