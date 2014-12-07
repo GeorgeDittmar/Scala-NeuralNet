@@ -7,8 +7,8 @@ package com.nn
 class Neuron {
 
   // takes a list of inputs and weights and calculates an activation value
-  def input( x:List[Double], w:List[Double], threshold:Double ): Unit ={
-
+  def input( x:List[Double], w:List[Double], threshold:Double ): Double ={
+    return 0.0
   }
 
 }

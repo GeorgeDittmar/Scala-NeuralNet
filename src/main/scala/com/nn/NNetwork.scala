@@ -19,8 +19,8 @@ class NNetwork {
   val weights = scala.collection.mutable.ArrayBuffer[Vector[Double]]()
 
   // Input to the network. This can be either training or testing data
-  val inputTraining = ArrayBuffer[Array[Int]]()
-  val inputTesting = ArrayBuffer[Array[Int]]()
+  val inputTraining = ArrayBuffer[Array[Double]]()
+  val inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
    * Create the input layer of the network with the given number of neurons. We add one extra neuron at the end as a bias
@@ -40,10 +40,10 @@ class NNetwork {
    * This must be called last. If we have no neurons already in the matrix throw error.
    * @param numUnits
    */
-  def createOutputLayer(numUnits: Int): Unit = {
+  def createOutputLayer[T](numUnits: Int): Unit = {
     val outputLayer = ArrayBuffer[Neuron]()
     for (x <- 0 to numUnits) {
-      outputLayer.+=(new Neuron())
+      outputLayer.+=(new Neuron() with T)
     }
     neurons.+=(outputLayer)
   }
@@ -52,10 +52,10 @@ class NNetwork {
    * Creates a generic layer of the neural network.
    * @param numUnits
    */
-  def createLayer(numUnits: Int): Unit = {
+  def createLayer[T](numUnits: Int): Unit = {
     var layer = new ArrayBuffer[Neuron]()
     for (elm <- 0 to numUnits+1) {
-      layer.+=(new Neuron())
+      layer.+=(new Neuron() with T)
     }
     var weights = Vector.fill(layer.length)((Random.nextDouble() * 1) + -1)
     return layer
@@ -70,7 +70,7 @@ class NNetwork {
     // read in each example and convert to integer arrays
     while(iter.hasNext){
       try {
-        val example: Array[Int] = iter.next().map(_.toInt)
+        val example: Array[Double] = iter.next().map(_.toDouble)
         inputTraining.+=(example)
       }catch{
         case numFE: NumberFormatException => {
@@ -85,7 +85,7 @@ class NNetwork {
     val iter = data.getLines().drop(1).map(_.split(delim))
     // read in each example and convert to integer arrays
     while(iter.hasNext){
-      val example: Array[Int] = iter.next().map(_.toInt)
+      val example: Array[Double] = iter.next().map(_.toDouble)
       inputTesting.+=(example)
     }
   }
