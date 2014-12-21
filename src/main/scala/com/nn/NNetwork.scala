@@ -23,20 +23,6 @@ class NNetwork {
   val inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
-   * Create the input layer of the network with the given number of neurons. We add one extra neuron at the end as a bias
-   * node.
-   */
-  def createInputLayer(numUnits: Int): Unit = {
-
-    val inputLayer = ArrayBuffer[Neuron]()
-    for (x <- 0 to numUnits+1) {
-      inputLayer.+=(new Neuron())
-    }
-
-    neurons.insert(0, inputLayer)
-  }
-
-  /**
    * This must be called last. If we have no neurons already in the matrix throw error.
    * @param numUnits
    */
@@ -57,7 +43,7 @@ class NNetwork {
     for (elm <- 0 to numUnits+1) {
       layer.+=(new Neuron() with T)
     }
-    var weights = Vector.fill(layer.length)((Random.nextDouble() * 1) + -1)
+    var weights = Vector.fill(numUnits+1)((Random.nextDouble() * 1) + -1)
     return layer
   }
 

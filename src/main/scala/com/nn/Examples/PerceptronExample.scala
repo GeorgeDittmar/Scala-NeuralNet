@@ -1,8 +1,7 @@
 package com.nn.Examples
 
 import java.io.FileInputStream
-
-import com.nn.math.StepFunction
+import com.nn.math.activations.StepFunction
 import com.nn.{PerceptronLearningTrait, NNetwork}
 
 import scala.io.BufferedSource
