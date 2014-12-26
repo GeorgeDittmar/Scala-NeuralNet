@@ -7,8 +7,13 @@ import com.nn.Neuron
  * Created by george on 12/7/14.
  */
 trait BipolarSigmoidFunction extends AbstractActivation {
-
-  override def activation(x:Array[Double], w:Vector[Double], threshold: Double) : Double={
+  /**
+   * sigmoid step function activation
+   * @param x
+   * @param w
+   * @return
+   */
+  def activation(x:Array[Double], w:Vector[Double]) : Double={
     // perform dot product between input and weights
     require(x.size == w.size)
     val dot = (for ((a, b) <- x zip w) yield a * b) sum
