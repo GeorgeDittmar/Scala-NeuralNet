@@ -16,7 +16,7 @@ trait StepFunction extends AbstractActivation {
    * @param w
    * @return
    */
-  override def activation( x:Array[Double], w:Vector[Double], threshold: Double): Unit ={
+  abstract override def activation( x:Array[Double], w:Vector[Double], threshold: Double): Unit ={
     // perform dot product between input and weights
     require(x.size == w.size)
     val dot = (for ((a, b) <- x zip w) yield a * b) sum

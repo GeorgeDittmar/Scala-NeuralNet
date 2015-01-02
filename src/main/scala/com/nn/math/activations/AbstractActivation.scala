@@ -7,4 +7,6 @@ import com.nn.Neuron
  */
 abstract class AbstractActivation extends Neuron {
   def activation(x:Array[Double], w:Vector[Double], threshold: Double): Double
+  def activation(x:Array[Double], w:Vector[Double]): Double
+
 }

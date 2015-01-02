@@ -2,9 +2,12 @@ package com.nn
 
 import java.io.File
 
+import com.nn.math.activations.AbstractActivation
+
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.BufferedSource
+import scala.reflect.ClassTag
 import scala.util.Random
 
 /**
@@ -41,7 +44,7 @@ class NNetwork {
     }
     val outputLayer = new ArrayBuffer[Neuron]()
     for (x <- 0 to numUnits) {
-      outputLayer.+=(new Neuron() with T)
+      outputLayer.+=(new Neuron() with ClassTag[_])
     }
     neurons.+=(outputLayer)
   }
@@ -50,12 +53,12 @@ class NNetwork {
    * Creates a generic layer of the neural network.
    * @param numUnits
    */
-  def createLayer[T](numUnits: Int): Unit = {
+  def createLayer[T](numUnits: Int, activationType: String): Unit = {
     var layer = new ArrayBuffer[Neuron]()
+
     for (elm <- 0 to numUnits + 1) {
-      layer.+=(new Neuron() with T)
+      layer.+=(new Neuron())
     }
-    return layer
   }
 
   /**
