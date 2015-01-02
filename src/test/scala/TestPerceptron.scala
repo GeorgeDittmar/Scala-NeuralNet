@@ -21,7 +21,7 @@ class TestPerceptron extends AssertionsForJUnit {
   @Test
   def testInvalidOutputLayer(): Unit ={
     try {
-      neural_net.createOutputLayer[StepFunction](10)
+      neural_net.createOutputLayer(10,"step")
 
       // fail if we succeed in creating the output layer
       fail()

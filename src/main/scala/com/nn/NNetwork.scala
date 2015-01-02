@@ -3,6 +3,7 @@ package com.nn
 import java.io.File
 
 import com.nn.math.activations.AbstractActivation
+import com.nn.utility.NeuronFactory
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -38,13 +39,13 @@ class NNetwork {
    * This must be called last. If we have no neurons already in the matrix throw error.
    * @param numUnits
    */
-  def createOutputLayer[T](numUnits: Int): Unit = {
+  def createOutputLayer[T](numUnits: Int, activationType: String): Unit = {
     if(neurons.length == 0){
       throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
     }
     val outputLayer = new ArrayBuffer[Neuron]()
     for (x <- 0 to numUnits) {
-      outputLayer.+=(new Neuron() with ClassTag[_])
+      outputLayer.+=(NeuronFactory.createNeuronActivation(activationType))
     }
     neurons.+=(outputLayer)
   }
@@ -53,11 +54,11 @@ class NNetwork {
    * Creates a generic layer of the neural network.
    * @param numUnits
    */
-  def createLayer[T](numUnits: Int, activationType: String): Unit = {
+  def createLayer(numUnits: Int, activationType: String): Unit = {
     var layer = new ArrayBuffer[Neuron]()
 
     for (elm <- 0 to numUnits + 1) {
-      layer.+=(new Neuron())
+      layer.+=(NeuronFactory.createNeuronActivation(activationType))
     }
   }
 

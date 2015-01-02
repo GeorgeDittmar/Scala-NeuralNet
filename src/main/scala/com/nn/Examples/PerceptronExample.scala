@@ -18,7 +18,8 @@ object PerceptronExample extends App{
   perceptron.createInputLayer(784)
 
   // Creates the single output node using a neuron with a StepActivation function
-  perceptron.createOutputLayer(1)
+  perceptron.createOutputLayer(1,"sigmoid")
+
 
   // creates the initial random weights in the network
   perceptron.init()

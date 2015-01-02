@@ -31,7 +31,7 @@ trait PerceptronLearningTrait extends NNetwork{
     for(x <- 0 until epochs){
 
       // loop over each example
-      for(example <- super.inputTraining){
+      for(example <- inputTraining){
 
         var label = example.head
         var sublist = example.slice(1,example.length)
