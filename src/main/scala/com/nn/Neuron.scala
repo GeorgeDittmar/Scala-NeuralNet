@@ -38,7 +38,7 @@ class Neuron {
   /**
    * initializes the neuron with default values and if it is an input layer node or not
    */
-  def setIsInput(isInputNode : Boolean): Unit ={
+  def setIsInputNode(isInputNode : Boolean): Unit ={
     this.isInputNode = isInputNode
   }
 
