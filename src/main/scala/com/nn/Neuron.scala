@@ -1,5 +1,7 @@
 package com.nn
 
+import com.nn.math.activations.AbstractActivation
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 

@@ -25,18 +25,18 @@ class NNetwork {
   val inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
-   * Creates the input layer of n + 1 neurons
+   * Creates the input layer of n + 1 bias input neuron
    */
   def createInputLayer(numUnits: Int): Unit ={
     val inputLayer = new ArrayBuffer[Neuron]()
-    for(x <- 0 to numUnits + 1){
+    for(x <- 1 to numUnits + 1){
       inputLayer.+=(new Neuron)
     }
     neurons.+=(inputLayer)
   }
 
   /**
-   * This must be called last. If we have no neurons already in the matrix throw error.
+   * This must be called last. If we have no neurons already in the network throws an illegal state exception
    * @param numUnits
    */
   def createOutputLayer[T](numUnits: Int, activationType: String): Unit = {
@@ -44,7 +44,7 @@ class NNetwork {
       throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
     }
     val outputLayer = new ArrayBuffer[Neuron]()
-    for (x <- 0 to numUnits) {
+    for (x <- 1 to numUnits) {
       outputLayer.+=(NeuronFactory.createNeuronActivation(activationType))
     }
     neurons.+=(outputLayer)
@@ -57,7 +57,7 @@ class NNetwork {
   def createLayer(numUnits: Int, activationType: String): Unit = {
     var layer = new ArrayBuffer[Neuron]()
 
-    for (elm <- 0 to numUnits + 1) {
+    for (elm <- 1 to numUnits) {
       layer.+=(NeuronFactory.createNeuronActivation(activationType))
     }
   }
@@ -96,18 +96,21 @@ class NNetwork {
    */
   def init(): Unit = {
     // set the input layer nodes for the network
-    for(inputNeuron <- 0 to neurons(0).length){
-      neurons(0)(inputNeuron).setIsInput(true)
-      neurons(0)(inputNeuron).setWeights(Vector.fill(1)((Random.nextDouble() * 1) + -1))
+    for(inputNeuron <- neurons(0)){
+      inputNeuron.setIsInputNode(true)
+      inputNeuron.setWeights(Vector.fill(1)((Random.nextDouble() * 1) + -1))
     }
 
+    val rand = new Random()
     // initialize the weights through out the network
-    for(layerInd <- 1 to neurons.length){
+    for(layerInd <- 1 to neurons.length-1){
       // look back at the previous layer and get the number of neurons
       val sizePrevLayer = neurons(layerInd-1).length
       for(neuron <- neurons(layerInd)){
         // create new random weight vector to be used by this neurons inputs
-        neuron.setWeights(Vector.fill(sizePrevLayer)((Random.nextDouble() * 1) + -1))
+        //rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+
+        neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble()*2)-1))
       }
 
     }

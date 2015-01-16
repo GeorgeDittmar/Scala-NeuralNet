@@ -4,6 +4,7 @@ import java.io.FileInputStream
 import com.nn.math.activations.StepFunction
 import com.nn.{PerceptronLearningTrait, NNetwork}
 
+import scala.collection.mutable.ArrayBuffer
 import scala.io.BufferedSource
 
 /**

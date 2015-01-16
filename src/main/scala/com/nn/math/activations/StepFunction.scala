@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
  * Implements the Heaviside step function
  * Created by george on 12/6/14.
  */
-trait StepFunction {
+trait StepFunction{
 
   this: Neuron =>
   /**

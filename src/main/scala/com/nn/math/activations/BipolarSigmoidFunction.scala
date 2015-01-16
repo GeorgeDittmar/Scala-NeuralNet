@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
  * Creates a bipolar sigmoid function for classifications tasks between -1 and 1
  * Created by george on 12/7/14.
  */
-trait BipolarSigmoidFunction {
+trait BipolarSigmoidFunction{
 
   this: Neuron =>
   /**

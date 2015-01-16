@@ -32,4 +32,14 @@ class TestPerceptron extends AssertionsForJUnit {
 
   }
 
+  @Test
+  def testLayerCreation(): Unit ={
+    neural_net.createInputLayer(10)
+    neural_net.createOutputLayer(1,"step")
+    neural_net.init()
+
+    val neuralMap = neural_net.neurons
+    assertTrue(neuralMap(0).size > 0 && neuralMap(0).size == 11)
+    assertTrue(neuralMap(1).size > 0 && neuralMap(1).size == 1)
+  }
 }

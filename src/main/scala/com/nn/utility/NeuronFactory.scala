@@ -10,7 +10,7 @@ import com.nn.math.activations.{BipolarSigmoidFunction, StepFunction}
  */
 object NeuronFactory {
 
-  def createNeuronActivation(traitType : String): Neuron ={
+  def createNeuronActivation(traitType : String): Neuron={
     if(traitType.equalsIgnoreCase("Step")){
       return new Neuron() with StepFunction
     }else if (traitType.equalsIgnoreCase("Sigmoid")){
