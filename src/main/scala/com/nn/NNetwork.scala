@@ -21,7 +21,7 @@ class NNetwork {
   // Implementation represents a network as a matrix of nodes with the first row associated with the input nodes
   val neurons = scala.collection.mutable.ArrayBuffer[ArrayBuffer[Neuron]]()
   // Input to the network. This can be either training or testing data
-  val inputTraining = ArrayBuffer[Array[Double]]()
+  var inputTraining = ArrayBuffer[Array[Double]]()
   val inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
@@ -63,9 +63,32 @@ class NNetwork {
   }
 
   /**
-   * Input the training/testing data to be read by the network. This function currently assumes the data is a csv
+   * Loads a single training example from meory into the networks input array
+   * @param example
    */
-  def inputTraining(data: BufferedSource, delim: String): Unit = {
+  def loadTrainingExample(example: Array[Double]): Unit ={
+    inputTraining.+=(example)
+  }
+  /**
+   * Load an already processed data set from memory into the NN
+   * @param data
+   */
+  def loadTrainingSet(data: ArrayBuffer[Array[Double]]): Unit ={
+    inputTraining = data
+  }
+
+  /**
+   * Load an already processed data set from memory into the NN
+   * @param data
+   */
+  def loadTestSet(data: ArrayBuffer[Array[Double]]): Unit ={
+    inputTraining = data
+  }
+
+  /**
+   * Input the training/testing data to be read by the network. This function currently assumes the data is a csv file
+   */
+  def loadTrainingSet(data: BufferedSource, delim: String): Unit = {
     val iter = data.getLines().drop(1).map(_.split(delim))
 
     // read in each example and convert to integer arrays
@@ -77,12 +100,12 @@ class NNetwork {
         case numFE: NumberFormatException => {
           println("Failed to load example...")
         }
-        case ex: Exception => println("Some error has happend reading input data")
+        case ex: Exception => println("Some error has happend reading input data.")
       }
     }
   }
 
-  def inputTest(data: BufferedSource, delim: String): Unit ={
+  def loadTestSet(data: BufferedSource, delim: String): Unit ={
     val iter = data.getLines().drop(1).map(_.split(delim))
     // read in each example and convert to integer arrays
     while(iter.hasNext){

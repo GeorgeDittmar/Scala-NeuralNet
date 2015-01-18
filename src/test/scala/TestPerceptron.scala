@@ -6,6 +6,8 @@ import org.junit.Assert._
 import org.junit.Test
 import org.junit.Before
 
+import scala.util.Random
+
 /**
  * Created by george on 10/11/14.
  */
@@ -17,6 +19,7 @@ class TestPerceptron extends AssertionsForJUnit {
   @Before def initialize(): Unit ={
     neural_net = new NNetwork with PerceptronLearningTrait
   }
+
 
   @Test
   def testInvalidOutputLayer(): Unit ={
@@ -41,5 +44,19 @@ class TestPerceptron extends AssertionsForJUnit {
     val neuralMap = neural_net.neurons
     assertTrue(neuralMap(0).size > 0 && neuralMap(0).size == 11)
     assertTrue(neuralMap(1).size > 0 && neuralMap(1).size == 1)
+  }
+
+
+
+  /**
+   * Make sure the framework is correctly loading and storing the input data for the network
+   */
+  @Test
+  def testNNInputData(): Unit ={
+    val testInput = Array.fill[Double](11)(Random.nextInt());
+    neural_net.loadTrainingExample(testInput)
+    neural_net.createInputLayer(10)
+    neural_net.createOutputLayer(1,"step")
+    assertTrue(neural_net.inputTraining.size == 1 && neural_net.inputTraining(0) == testInput)
   }
 }

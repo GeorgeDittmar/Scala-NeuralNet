@@ -28,8 +28,8 @@ object PerceptronExample extends App{
   println("Reading in training and testing data sets...")
 
   //TODO - change to use the scala Source lib
-  perceptron.inputTraining(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/train.csv")),",")
-  perceptron.inputTest(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/test.csv")),",")
+  perceptron.loadTrainingSet(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/train.csv")),",")
+  perceptron.loadTestSet(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/test.csv")),",")
 
   println("Perceptron initialized")
 
