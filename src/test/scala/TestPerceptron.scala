@@ -59,4 +59,10 @@ class TestPerceptron extends AssertionsForJUnit {
     neural_net.createOutputLayer(1,"step")
     assertTrue(neural_net.inputTraining.size == 1 && neural_net.inputTraining(0) == testInput)
   }
+
+  @Test
+  def testFeedingExampleData(): Unit ={
+    val testInput = Array.fill[Double](11)(Random.nextInt());
+  }
+
 }
