@@ -26,7 +26,7 @@ trait PerceptronLearningTrait {
    * Invokes the learning method on a set of training data for a given number of epochs
    * @param epochs
    */
-  def learn(epochs: Int): Unit ={
+  def learn(epochs: Int, target:Int): Unit ={
 
     for(x <- 0 until epochs){
 
@@ -38,10 +38,11 @@ trait PerceptronLearningTrait {
 
 
         // feed the input through the layers of the network starting with the input layer
-        // TODO - probably good idea to rethink how the input layer is setup since this feels hacky.
-        for(neuralLayer <- neurons){
-          for(i <- 0 to sublist.length){
-            neuralLayer(i).input(new ArrayBuffer[Double]().+=(sublist(i)))
+        // TODO - probably good idea to rethink how the input layer is setup since this feels hacky and not functional
+
+        for(neuralLayer <- neurons(0)){
+          for(i <- 0 to sublist.length-1){
+            neuralLayer.input(new ArrayBuffer[Double]().+=(sublist(i)))
           }
         }
 

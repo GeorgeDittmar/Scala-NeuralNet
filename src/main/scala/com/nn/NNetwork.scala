@@ -19,10 +19,10 @@ class NNetwork {
 
   // An ANN consists of nodes and weighted edges.
   // Implementation represents a network as a matrix of nodes with the first row associated with the input nodes
-  val neurons = scala.collection.mutable.ArrayBuffer[ArrayBuffer[Neuron]]()
+  val neurons = ArrayBuffer[ArrayBuffer[Neuron]]()
   // Input to the network. This can be either training or testing data
   var inputTraining = ArrayBuffer[Array[Double]]()
-  val inputTesting = ArrayBuffer[Array[Double]]()
+  var inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
    * Creates the input layer of n + 1 bias input neuron
@@ -131,12 +131,18 @@ class NNetwork {
       val sizePrevLayer = neurons(layerInd-1).length
       for(neuron <- neurons(layerInd)){
         // create new random weight vector to be used by this neurons inputs
-        //rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-
         neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble()*2)-1))
       }
 
     }
+  }
+
+  /**
+   * Given example X to classify, produce a target Y as output of the network
+   * @param example
+   */
+  def classify(example: ArrayBuffer[Double]): Unit ={
+
   }
 
 }

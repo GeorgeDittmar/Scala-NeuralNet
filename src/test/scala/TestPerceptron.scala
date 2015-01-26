@@ -11,8 +11,9 @@ import scala.util.Random
 /**
  * Created by george on 10/11/14.
  */
+
 class TestPerceptron extends AssertionsForJUnit {
-  var neural_net: NNetwork = _
+  var neural_net: NNetwork with PerceptronLearningTrait = _
   /**
    * Intialize the neural network for the tests
    */
@@ -37,7 +38,7 @@ class TestPerceptron extends AssertionsForJUnit {
 
   @Test
   def testLayerCreation(): Unit ={
-    neural_net.createInputLayer(10)
+    neural_net.createInputLayer(12)
     neural_net.createOutputLayer(1,"step")
     neural_net.init()
 
@@ -53,7 +54,7 @@ class TestPerceptron extends AssertionsForJUnit {
    */
   @Test
   def testNNInputData(): Unit ={
-    val testInput = Array.fill[Double](11)(Random.nextInt());
+    val testInput = Array.fill[Double](12)(Random.nextInt());
     neural_net.loadTrainingExample(testInput)
     neural_net.createInputLayer(10)
     neural_net.createOutputLayer(1,"step")
@@ -61,8 +62,9 @@ class TestPerceptron extends AssertionsForJUnit {
   }
 
   @Test
-  def testFeedingExampleData(): Unit ={
-    val testInput = Array.fill[Double](11)(Random.nextInt());
+  def testFeedingTrainingData(): Unit ={
+    neural_net = new NNetwork with PerceptronLearningTrait
+    val testInput = Array.fill[Double](12)(Random.nextInt());
     neural_net.loadTrainingExample(testInput)
     neural_net.createInputLayer(10)
     neural_net.createOutputLayer(1,"step")
@@ -70,6 +72,12 @@ class TestPerceptron extends AssertionsForJUnit {
     // Initialize the network with random weights between -1 and 1
     neural_net.init()
 
+    neural_net.learn(1,1)
+
+    val neurons = neural_net.neurons
+
+    // check that our output nodes have input data
+    assertTrue(neurons(1).forall(x=> x.inputs.size > 0))
   }
 
 }

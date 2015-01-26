@@ -21,20 +21,20 @@ object PerceptronExample extends App{
   // Creates the single output node using a neuron with a StepActivation function
   perceptron.createOutputLayer(1,"sigmoid")
 
-
   // creates the initial random weights in the network
   perceptron.init()
 
   println("Reading in training and testing data sets...")
 
   //TODO - change to use the scala Source lib
-  perceptron.loadTrainingSet(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/train.csv")),",")
-  perceptron.loadTestSet(new BufferedSource(new FileInputStream("/home/george/Development/s-nn/Scala-NeuralNet/src/main/resources/test.csv")),",")
+  perceptron.loadTrainingSet(new BufferedSource(new FileInputStream("./src/main/resources/train.csv")),",")
+  perceptron.loadTestSet(new BufferedSource(new FileInputStream("./src/main/resources/test.csv")),",")
 
   println("Perceptron initialized")
 
-  // set the learning rate with the given number of epochs
-  perceptron.learn(100)
+  // set the learning rate with the given number of epochs and which digit to learn
+  perceptron.learn(10,1)
+
 
 
 }
