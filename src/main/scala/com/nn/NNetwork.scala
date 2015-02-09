@@ -2,7 +2,7 @@ package com.nn
 
 import java.io.File
 
-import com.nn.math.activations.AbstractActivation
+import com.nn.math.activations.{ActivationFunction, StepFunction}
 import com.nn.utility.NeuronFactory
 
 import scala.collection.mutable
@@ -19,7 +19,7 @@ class NNetwork {
 
   // An ANN consists of nodes and weighted edges.
   // Implementation represents a network as a matrix of nodes with the first row associated with the input nodes
-  val neurons = ArrayBuffer[ArrayBuffer[Neuron]]()
+  val neurons = ArrayBuffer[Layer]()
   // Input to the network. This can be either training or testing data
   var inputTraining = ArrayBuffer[Array[Double]]()
   var inputTesting = ArrayBuffer[Array[Double]]()
@@ -27,10 +27,10 @@ class NNetwork {
   /**
    * Creates the input layer of n + 1 bias input neuron
    */
-  def createInputLayer(numUnits: Int): Unit ={
-    val inputLayer = new ArrayBuffer[Neuron]()
+  def createInputLayer(numUnits: Int, activationFunction : ActivationFunction): Unit ={
+    val inputLayer: Layer = new Layer(numUnits,activationFunction,null)
     for(x <- 1 to numUnits + 1){
-      inputLayer.+=(new Neuron)
+      inputLayer.layer.+=(new Neuron)
     }
     neurons.+=(inputLayer)
   }
@@ -39,13 +39,14 @@ class NNetwork {
    * This must be called last. If we have no neurons already in the network throws an illegal state exception
    * @param numUnits
    */
-  def createOutputLayer[T](numUnits: Int, activationType: String): Unit = {
+  def createOutputLayer[T](numUnits: Int, activationFunction: ActivationFunction): Unit = {
     if(neurons.length == 0){
       throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
     }
-    val outputLayer = new ArrayBuffer[Neuron]()
+    val outputLayer: Layer = new Layer(numUnits,activationFunction,null)
+
     for (x <- 1 to numUnits) {
-      outputLayer.+=(NeuronFactory.createNeuronActivation(activationType))
+      outputLayer.layer.+=(new Neuron)
     }
     neurons.+=(outputLayer)
   }
@@ -54,11 +55,11 @@ class NNetwork {
    * Creates a generic layer of the neural network.
    * @param numUnits
    */
-  def createLayer(numUnits: Int, activationType: String): Unit = {
-    var layer = new ArrayBuffer[Neuron]()
+  def createLayer(numUnits: Int, activationFunction: ActivationFunction): Unit = {
+    val layer: Layer = new Layer(numUnits,activationFunction,null)
 
     for (elm <- 1 to numUnits) {
-      layer.+=(NeuronFactory.createNeuronActivation(activationType))
+      layer.layer.+=(new Neuron)
     }
   }
 
@@ -119,7 +120,7 @@ class NNetwork {
    */
   def init(): Unit = {
     // set the input layer nodes for the network
-    for(inputNeuron <- neurons(0)){
+    for(inputNeuron <- neurons(0).layer){
       inputNeuron.setIsInputNode(true)
       inputNeuron.setWeights(Vector.fill(1)((Random.nextDouble() * 1) + -1))
     }
@@ -128,8 +129,8 @@ class NNetwork {
     // initialize the weights through out the network
     for(layerInd <- 1 to neurons.length-1){
       // look back at the previous layer and get the number of neurons
-      val sizePrevLayer = neurons(layerInd-1).length
-      for(neuron <- neurons(layerInd)){
+      val sizePrevLayer = neurons(layerInd-1).layer.length
+      for(neuron <- neurons(layerInd).layer){
         // create new random weight vector to be used by this neurons inputs
         neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble()*2)-1))
       }

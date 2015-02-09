@@ -1,6 +1,6 @@
 package com.nn
 
-import com.nn.math.activations.AbstractActivation
+import com.nn.math.activations.{NetworkActivations, ActivationFunction}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -14,7 +14,6 @@ class Neuron {
 
   var inputWeights: Vector[Double] = _
   var inputs: ArrayBuffer[Double] = _
-  var activation : Double = _
   var isInputNode : Boolean = false
 
   def input(inputs: ArrayBuffer[Double]): Unit ={

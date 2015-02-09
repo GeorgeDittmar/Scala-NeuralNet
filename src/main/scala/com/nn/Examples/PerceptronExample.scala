@@ -1,8 +1,8 @@
 package com.nn.Examples
 
 import java.io.FileInputStream
-import com.nn.math.activations.StepFunction
-import com.nn.{PerceptronLearningTrait, NNetwork}
+import com.nn.math.activations.{BipolarSigmoidFunction, ActivationFunction, StepFunction}
+import com.nn.{Layer, Neuron, PerceptronLearningTrait, NNetwork}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.io.BufferedSource
@@ -16,10 +16,10 @@ object PerceptronExample extends App{
   var perceptron = new NNetwork() with PerceptronLearningTrait
 
   // simple perceptron with an input layer of 784 units and output layer of 1 unit
-  perceptron.createInputLayer(784)
+  perceptron.createInputLayer(784,new StepFunction(0.0))
 
   // Creates the single output node using a neuron with a StepActivation function
-  perceptron.createOutputLayer(1,"sigmoid")
+  perceptron.createOutputLayer(1,new BipolarSigmoidFunction())
 
   // creates the initial random weights in the network
   perceptron.init()

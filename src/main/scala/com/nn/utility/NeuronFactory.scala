@@ -1,7 +1,7 @@
 package com.nn.utility
 
 import com.nn.Neuron
-import com.nn.math.activations.{BipolarSigmoidFunction, StepFunction}
+import com.nn.math.activations.{ActivationFunction, BipolarSigmoidFunction, StepFunction}
 
 /**
  * Factory class to create neurons with particular activation functions
@@ -10,11 +10,12 @@ import com.nn.math.activations.{BipolarSigmoidFunction, StepFunction}
  */
 object NeuronFactory {
 
-  def createNeuronActivation(traitType : String): Neuron={
+
+  def createNeuron(traitType : String): Neuron ={
     if(traitType.equalsIgnoreCase("Step")){
-      return new Neuron() with StepFunction
+      return new StepNeuron()
     }else if (traitType.equalsIgnoreCase("Sigmoid")){
-      return new Neuron() with BipolarSigmoidFunction
+      return new SigmoidNeuron()
     }else{
       throw new IllegalArgumentException("Unknown activation function: "+traitType)
     }
