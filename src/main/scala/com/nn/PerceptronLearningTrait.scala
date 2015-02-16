@@ -46,7 +46,6 @@ trait PerceptronLearningTrait {
           }
         }
 
-        neurons(0).activationFunction.activation(null,null)
       }
 
     }

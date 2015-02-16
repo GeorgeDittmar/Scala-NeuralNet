@@ -3,7 +3,6 @@ package com.nn
 import java.io.File
 
 import com.nn.math.activations.{ActivationFunction, StepFunction}
-import com.nn.utility.NeuronFactory
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer

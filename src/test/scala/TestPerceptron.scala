@@ -65,8 +65,6 @@ class TestPerceptron extends AssertionsForJUnit {
   @Test
   def testFeedingTrainingData(): Unit ={
     neural_net = new NNetwork with PerceptronLearningTrait
-    val l: ArrayBuffer[NNetwork]= new ArrayBuffer[NNetwork]().+=(neural_net)
-    l(0).isInstanceOf[NNetwork with PerceptronLearningTrait]
     val testInput = Array.fill[Double](12)(Random.nextInt());
     neural_net.loadTrainingExample(testInput)
     neural_net.createInputLayer(10,new StepFunction(0.0))
@@ -80,7 +78,7 @@ class TestPerceptron extends AssertionsForJUnit {
     val neurons = neural_net.neurons
 
     // check that our output nodes have input data
-//    assertTrue(neurons(0).forall(x=> x.inputs.size > 0))
+    assertTrue(neurons(0).layer.forall(x=> x.inputs.size > 0))
   }
 
 }
