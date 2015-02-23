@@ -28,6 +28,7 @@ class NNetwork {
    */
   def createInputLayer(numUnits: Int, activationFunction : ActivationFunction): Unit ={
     val inputLayer: Layer = new Layer(numUnits,activationFunction,null)
+    
     for(x <- 1 to numUnits + 1){
       inputLayer.layer.+=(new Neuron)
     }
@@ -55,6 +56,10 @@ class NNetwork {
    * @param numUnits
    */
   def createLayer(numUnits: Int, activationFunction: ActivationFunction): Unit = {
+    if(neurons.length == 0){
+      throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
+    }
+    
     val layer: Layer = new Layer(numUnits,activationFunction,null)
 
     for (elm <- 1 to numUnits) {
