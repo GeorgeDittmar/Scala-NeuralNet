@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
  * Implements the Heaviside step function
  * Created by george on 12/6/14.
  */
-class StepFunction(threshold:Double) extends ActivationFunction {
+class StepFunction(threshold:Double = 0.0) extends ActivationFunction {
 
   /**
    * Computes the step activation for a neuron given the input data and weights

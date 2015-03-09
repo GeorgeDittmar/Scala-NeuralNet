@@ -16,7 +16,7 @@ object PerceptronExample extends App{
   var perceptron = new NNetwork() with PerceptronLearningTrait
 
   // simple perceptron with an input layer of 784 units and output layer of 1 unit
-  perceptron.createInputLayer(784,new StepFunction(0.0))
+  perceptron.createInputLayer(784,new StepFunction())
 
   // Creates the single output node using a neuron with a StepActivation function
   perceptron.createOutputLayer(1,new BipolarSigmoidFunction())
