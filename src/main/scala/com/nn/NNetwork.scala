@@ -11,7 +11,7 @@ import scala.reflect.ClassTag
 import scala.util.Random
 
 /**
- * Base class for an NN artchitecture
+ * Base class for an Neural Network
  * Created by george on 10/11/14.
  */
 class NNetwork {
