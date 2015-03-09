@@ -33,8 +33,10 @@ trait PerceptronLearningTrait {
         var label = example.head
         val sublist = example.slice(1, example.length)
 
+
         // feed the input through the layers of the network starting with the input layer
         // TODO - probably good idea to rethink how the input layer is setup since this feels hacky and not functional
+
         for(neuralLayer <- neurons(0).layer){
           for(i <- 0 to sublist.length-1){
             neuralLayer.input(new ArrayBuffer[Double]().+=(sublist(i)))
