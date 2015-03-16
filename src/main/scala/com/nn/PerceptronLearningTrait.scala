@@ -35,8 +35,8 @@ trait PerceptronLearningTrait {
 
         // feed the input through the layers of the network starting with the input layer
         // TODO - probably good idea to rethink how the input layer is setup since this feels hacky and not functional
-        for(input <- neurons(0).layer){
-          sublist.foreach(example => neuralLayer.input(new ArrayBuffer[Double].+=(example)))
+        for(inputNeuron <- neurons(0).layer){
+          sublist.foreach(example => inputNeuron.input(new ArrayBuffer[Double].+=(example)))
 //          for(i <- 0 to sublist.length-1){
 //            neuralLayer.input(new ArrayBuffer[Double]().+=(sublist(i)))
 //          }
