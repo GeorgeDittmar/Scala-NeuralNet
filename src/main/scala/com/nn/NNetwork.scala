@@ -27,7 +27,7 @@ class NNetwork {
    * Creates the input layer of n + 1 bias input neuron
    */
   def createInputLayer(numUnits: Int, activationFunction : ActivationFunction): Unit ={
-    val inputLayer: Layer = new Layer(numUnits,activationFunction,null)
+    val inputLayer: Layer = new Layer(numUnits,activationFunction)
     
     for(x <- 1 to numUnits + 1){
       inputLayer.layer.+=(new Neuron)
@@ -43,7 +43,7 @@ class NNetwork {
     if(neurons.length == 0){
       throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
     }
-    val outputLayer: Layer = new Layer(numUnits,activationFunction,null)
+    val outputLayer: Layer = new Layer(numUnits,activationFunction,neurons(neurons.size-1))
 
     for (x <- 1 to numUnits) {
       outputLayer.layer.+=(new Neuron)
@@ -60,7 +60,7 @@ class NNetwork {
       throw new IllegalStateException("Network does not appear to be initialized with any neurons.")
     }
     
-    val layer: Layer = new Layer(numUnits,activationFunction,null)
+    val layer: Layer = new Layer(numUnits,activationFunction,neurons(neurons.size-1))
 
     for (elm <- 1 to numUnits) {
       layer.layer.+=(new Neuron)
