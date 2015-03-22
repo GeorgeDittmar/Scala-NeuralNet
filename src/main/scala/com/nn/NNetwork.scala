@@ -4,10 +4,8 @@ import java.io.File
 
 import com.nn.math.activations.{ActivationFunction, StepFunction}
 
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.io.BufferedSource
-import scala.reflect.ClassTag
 import scala.util.Random
 
 /**
@@ -18,6 +16,7 @@ class NNetwork {
 
   // An ANN consists of nodes and weighted edges.
   // Implementation represents a network as a matrix of nodes with the first row associated with the input nodes
+  var inputLayer: Layer = _
   val neurons = ArrayBuffer[Layer]()
   // Input to the network. This can be either training or testing data
   var inputTraining = ArrayBuffer[Array[Double]]()
@@ -30,9 +29,9 @@ class NNetwork {
     val inputLayer: Layer = new Layer(numUnits,activationFunction)
     
     for(x <- 1 to numUnits + 1){
-      inputLayer.layer.+=(new Neuron)
+      inputLayer.neuralLayer.+=(new Neuron)
     }
-    neurons.+=(inputLayer)
+    this.inputLayer = inputLayer
   }
 
   /**
@@ -46,7 +45,7 @@ class NNetwork {
     val outputLayer: Layer = new Layer(numUnits,activationFunction,neurons(neurons.size-1))
 
     for (x <- 1 to numUnits) {
-      outputLayer.layer.+=(new Neuron)
+      outputLayer.neuralLayer.+=(new Neuron)
     }
     neurons.+=(outputLayer)
   }
@@ -63,7 +62,7 @@ class NNetwork {
     val layer: Layer = new Layer(numUnits,activationFunction,neurons(neurons.size-1))
 
     for (elm <- 1 to numUnits) {
-      layer.layer.+=(new Neuron)
+      layer.neuralLayer.+=(new Neuron)
     }
   }
 
@@ -124,7 +123,7 @@ class NNetwork {
    */
   def init(): Unit = {
     // set the input layer nodes for the network
-    for(inputNeuron <- neurons(0).layer){
+    for(inputNeuron <- neurons(0).neuralLayer){
       inputNeuron.setIsInputNode(true)
       inputNeuron.setWeights(Vector.fill(1)((Random.nextDouble() * 1) + -1))
     }
@@ -133,8 +132,8 @@ class NNetwork {
     // initialize the weights through out the network
     for(layerInd <- 1 to neurons.length-1){
       // look back at the previous layer and get the number of neurons
-      val sizePrevLayer = neurons(layerInd-1).layer.length
-      for(neuron <- neurons(layerInd).layer){
+      val sizePrevLayer = neurons(layerInd-1).neuralLayer.length
+      for(neuron <- neurons(layerInd).neuralLayer){
         // create new random weight vector to be used by this neurons inputs
         neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble()*2)-1))
       }
