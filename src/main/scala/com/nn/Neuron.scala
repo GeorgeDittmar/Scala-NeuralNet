@@ -1,6 +1,5 @@
 package com.nn
 
-import com.nn.math.activations.{NetworkActivations, ActivationFunction}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -17,7 +16,7 @@ class Neuron {
   var isInputNode : Boolean = false
   var isOutputNode : Boolean = false
 
-  def input(inputs: Vector[Double]): Unit ={
+  def inputs(inputs: Vector[Double]): Unit ={
     this.inputs = inputs
   }
 
@@ -26,7 +25,7 @@ class Neuron {
    * @param x
    */
   def input(x: Double): Unit ={
-    inputs = inputs :+ x
+    this.inputs = inputs :+ x
   }
 
   /**
@@ -34,7 +33,7 @@ class Neuron {
    * @param weights
    */
   def setWeights(weights: Vector[Double]): Unit ={
-    inputWeights = weights
+    this.inputWeights = weights
   }
 
   /**

@@ -77,7 +77,7 @@ class TestPerceptron extends AssertionsForJUnit {
     val neurons = neural_net.neurons
 
     // check that our output nodes have input data
-    assertTrue(neurons(0).layer.forall(x=> x.inputs.size > 0))
+    assertTrue(neurons(0).neuralLayer.forall(x => x.inputs.size > 0))
   }
 
 }

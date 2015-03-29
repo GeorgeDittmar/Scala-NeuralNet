@@ -16,7 +16,6 @@ class Layer (size: Int, function : ActivationFunction, prev: Layer=null) {
   val isInputLayer : Boolean = false
   val isOutputLayer : Boolean = false
 
-  val layerOutput : Vector[Double] = _
   /**
    * function that processes the current layer of neurons and generates a vector of outputs to be processed by the next layer
    */

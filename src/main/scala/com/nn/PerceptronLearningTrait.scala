@@ -27,8 +27,8 @@ trait PerceptronLearningTrait {
 
         // feed the input through the layers of the network starting with the input layer
         neurons(0).neuralLayer.foreach(inputNeuron =>
-          sublist.foreach(example =>
-            inputNeuron.input(new Vector[Double] :+ (example))
+          sublist.foreach(element =>
+            inputNeuron.input(element)
           )
         )
 
