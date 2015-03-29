@@ -23,16 +23,30 @@ trait PerceptronLearningTrait {
     for(x <- 0 until epochs){
       // loop over each example
       for(example <- inputTraining){
-        var label = example.head
         val sublist = example.slice(1, example.length)
+
         // feed the input through the layers of the network starting with the input layer
-        // TODO - probably good idea to rethink how the input layer is setup since this feels hacky and not functional
-        for(inputNeuron <- inputLayer.neuralLayer){
-          sublist.foreach(example => inputNeuron.input(new ArrayBuffer[Double].+=(example)))
+        neurons(0).neuralLayer.foreach(inputNeuron =>
+          sublist.foreach(example =>
+            inputNeuron.input(new Vector[Double] :+ (example))
+          )
+        )
+
+        // feed the input through the network
+        neurons.foreach{layer => layer.process()
+
         }
-        // feed the input layer to the next layer in the network
 
       }
     }
+  }
+
+  /**
+   * feeds the input layer into the neuron layers.
+   * @param inputLayer
+   * @param neurons
+   */
+  private def feedForward(inputLayer: Layer, neurons: ArrayBuffer[Layer]): Unit ={
+
   }
 }

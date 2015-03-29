@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
  * Created by george on 3/22/15.
  */
 class SoftplusFunction extends ActivationFunction {
-  override def activation(inputs: ArrayBuffer[Double], weights: Vector[Double]): Double = {
+  override def activation(inputs: Vector[Double], weights: Vector[Double]): Double = {
     require(inputs.size == weights.size)
     val dot = (for ((a, b) <- inputs zip weights) yield a * b) sum
     return Math.max(0,Math.log(1+Math.exp(dot)))

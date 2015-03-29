@@ -13,10 +13,11 @@ class Neuron {
   // scala is weird. This is initialized to some default for now
 
   var inputWeights: Vector[Double] = _
-  var inputs: ArrayBuffer[Double] = _
+  var inputs: Vector[Double] = _
   var isInputNode : Boolean = false
+  var isOutputNode : Boolean = false
 
-  def input(inputs: ArrayBuffer[Double]): Unit ={
+  def input(inputs: Vector[Double]): Unit ={
     this.inputs = inputs
   }
 
@@ -24,8 +25,8 @@ class Neuron {
    * lazilly build up the inputs for the neuron 1 element at a time. Might be good for iterative loading of data
    * @param x
    */
-  def input(x: Int): Unit ={
-    inputs.+=(x)
+  def input(x: Double): Unit ={
+    inputs = inputs :+ x
   }
 
   /**

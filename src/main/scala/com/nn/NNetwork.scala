@@ -15,7 +15,6 @@ import scala.util.Random
 class NNetwork {
 
   // An ANN consists of nodes and weighted edges.
-  // Implementation represents a network as a matrix of nodes with the first row associated with the input nodes
   var inputLayer: Layer = _
   val neurons = ArrayBuffer[Layer]()
   // Input to the network. This can be either training or testing data
@@ -23,7 +22,7 @@ class NNetwork {
   var inputTesting = ArrayBuffer[Array[Double]]()
 
   /**
-   * Creates the input layer of n + 1 bias input neuron
+   * Creates the input layer of n + 1 bias input neurons.
    */
   def createInputLayer(numUnits: Int, activationFunction : ActivationFunction): Unit ={
     val inputLayer: Layer = new Layer(numUnits,activationFunction)
@@ -31,7 +30,8 @@ class NNetwork {
     for(x <- 1 to numUnits + 1){
       inputLayer.neuralLayer.+=(new Neuron)
     }
-    this.inputLayer = inputLayer
+
+    this.neurons.+=(inputLayer)
   }
 
   /**
@@ -122,22 +122,11 @@ class NNetwork {
    * Initializes a new network with a random set of weights between -1 and 1
    */
   def init(): Unit = {
-    // set the input layer nodes for the network
-    for(inputNeuron <- neurons(0).neuralLayer){
-      inputNeuron.setIsInputNode(true)
-      inputNeuron.setWeights(Vector.fill(1)((Random.nextDouble() * 1) + -1))
-    }
-
     val rand = new Random()
-    // initialize the weights through out the network
-    for(layerInd <- 1 to neurons.length-1){
-      // look back at the previous layer and get the number of neurons
-      val sizePrevLayer = neurons(layerInd-1).neuralLayer.length
-      for(neuron <- neurons(layerInd).neuralLayer){
-        // create new random weight vector to be used by this neurons inputs
-        neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble()*2)-1))
-      }
-
+    // initialize random weights through the whole network
+    neurons.foreach { nLayer =>
+      val sizePrevLayer = nLayer.previousLayer.neuralLayer.size
+      nLayer.neuralLayer.foreach(neuron => neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble() * 2) - 1)))
     }
   }
 
@@ -145,7 +134,7 @@ class NNetwork {
    * Given example X to classify, produce a target Y as output of the network
    * @param example
    */
-  def classify(example: ArrayBuffer[Double]): Unit ={
+  def classify(example: ArrayBuffer[Double]): Unit = {
 
   }
 

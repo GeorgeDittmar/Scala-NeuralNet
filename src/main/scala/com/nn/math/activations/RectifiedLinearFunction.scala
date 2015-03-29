@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
  */
 class RectifiedLinearFunction extends ActivationFunction{
 
-  override def activation(inputs: ArrayBuffer[Double], weights: Vector[Double]): Double = {
+  override def activation(inputs: Vector[Double], weights: Vector[Double]): Double = {
     require(inputs.size == weights.size)
     val dot = (for ((a, b) <- inputs zip weights) yield a * b) sum
     return Math.max(0,dot)

@@ -7,5 +7,5 @@ import scala.collection.mutable.ArrayBuffer
  * Created by george on 12/8/14.
  */
 abstract class ActivationFunction {
-  def activation(inputs : ArrayBuffer[Double], weights: Vector[Double]): Double
+  def activation(inputs : Vector[Double], weights: Vector[Double]): Double
 }

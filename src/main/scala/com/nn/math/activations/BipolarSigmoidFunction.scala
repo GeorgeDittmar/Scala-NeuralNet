@@ -18,7 +18,7 @@ class BipolarSigmoidFunction extends ActivationFunction{
    * @param w
    * @return
    */
-  def activation(x:ArrayBuffer[Double], w:Vector[Double]) : Double={
+  def activation(x : Vector[Double] , w : Vector[Double]) : Double={
     // perform dot product between input and weights
     require(x.size == w.size)
     val dot = (for ((a, b) <- x zip w) yield a * b) sum
