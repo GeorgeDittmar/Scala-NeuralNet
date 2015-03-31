@@ -11,10 +11,8 @@ import scala.util.Random
 class Neuron {
   // scala is weird. This is initialized to some default for now
 
-  var inputWeights: Vector[Double] = _
-  var inputs: Vector[Double] = _
-  var isInputNode : Boolean = false
-  var isOutputNode : Boolean = false
+  var inputWeights = Vector.empty[Double]
+  var inputs = Vector.empty[Double]
 
   def inputs(inputs: Vector[Double]): Unit ={
     this.inputs = inputs
@@ -34,13 +32,6 @@ class Neuron {
    */
   def setWeights(weights: Vector[Double]): Unit ={
     this.inputWeights = weights
-  }
-
-  /**
-   * initializes the neuron with default values and if it is an input layer node or not
-   */
-  def setIsInputNode(isInputNode : Boolean): Unit ={
-    this.isInputNode = isInputNode
   }
 
 }

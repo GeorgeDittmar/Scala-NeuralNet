@@ -30,7 +30,7 @@ class NNetwork {
     for(x <- 1 to numUnits + 1){
       inputLayer.neuralLayer.+=(new Neuron)
     }
-
+    inputLayer.isInputLayer = true
     this.neurons.+=(inputLayer)
   }
 
@@ -47,7 +47,8 @@ class NNetwork {
     for (x <- 1 to numUnits) {
       outputLayer.neuralLayer.+=(new Neuron)
     }
-    neurons.+=(outputLayer)
+    outputLayer.isOutputLayer = true
+    this.neurons.+=(outputLayer)
   }
 
   /**
@@ -125,8 +126,10 @@ class NNetwork {
     val rand = new Random()
     // initialize random weights through the whole network
     neurons.foreach { nLayer =>
-      val sizePrevLayer = nLayer.previousLayer.neuralLayer.size
-      nLayer.neuralLayer.foreach(neuron => neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble() * 2) - 1)))
+      if (!nLayer.isInputLayer) {
+        val sizePrevLayer = nLayer.previousLayer.neuralLayer.size
+        nLayer.neuralLayer.foreach(neuron => neuron.setWeights(Vector.fill(sizePrevLayer)((rand.nextDouble() * 2) - 1)))
+    }
     }
   }
 

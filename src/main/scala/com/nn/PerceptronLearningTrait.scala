@@ -24,18 +24,31 @@ trait PerceptronLearningTrait {
       // loop over each example
       for(example <- inputTraining){
         val sublist = example.slice(1, example.length)
-
+        sublist.foreach(elm => println(elm))
         // feed the input through the layers of the network starting with the input layer
-        neurons(0).neuralLayer.foreach(inputNeuron =>
-          sublist.foreach(element =>
-            inputNeuron.input(element)
-          )
-        )
+        for ((neuron,inp) <- (neurons(0).neuralLayer zip sublist)) yield neuron.input(inp)
+//        neurons(0).neuralLayer.foreach(inputNeuron =>
+//          sublist.foreach(element =>
+//            inputNeuron.input(element)
+//          )
+//        )
 
+        var networkOuput : Vector[Double] = null
         // feed the input through the network
-        neurons.foreach{layer => layer.process()
+        neurons.foreach{layer =>
+          if(layer.previousLayer != null){
+            val output = layer.previousLayer.process()
+            layer.neuralLayer.foreach(neuron => neuron.inputs(output))
 
+            if(layer.isOutputLayer){
+              // if we are at the output layer we process that layer
+              networkOuput = layer.process()
+            }
+          }
         }
+
+        // eval the output with the actual label
+        System.out.println("OUTPUT IS " + networkOuput )
 
       }
     }

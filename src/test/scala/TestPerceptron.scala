@@ -54,7 +54,7 @@ class TestPerceptron extends AssertionsForJUnit {
    */
   @Test
   def testNNInputData(): Unit ={
-    val testInput = Array.fill[Double](12)(Random.nextInt());
+    val testInput = Array.fill[Double](10)(Random.nextInt());
     neural_net.loadTrainingExample(testInput)
     neural_net.createInputLayer(10,new StepFunction(0.0))
     neural_net.createOutputLayer(1,new StepFunction(0.0))

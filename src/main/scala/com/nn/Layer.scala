@@ -13,15 +13,21 @@ class Layer (size: Int, function : ActivationFunction, prev: Layer=null) {
   val neuralLayer:ArrayBuffer[Neuron] = new ArrayBuffer[Neuron](size)
   val activationFunction : ActivationFunction = function
   val previousLayer : Layer = prev
-  val isInputLayer : Boolean = false
-  val isOutputLayer : Boolean = false
+  var isInputLayer: Boolean = false
+  var isOutputLayer: Boolean = false
 
   /**
    * function that processes the current layer of neurons and generates a vector of outputs to be processed by the next layer
    */
   def process(): Vector[Double] ={
+
     var outputBuilder = new VectorBuilder[Double]()
-    neuralLayer.foreach(neuron => outputBuilder += activationFunction.activation(neuron.inputs,neuron.inputWeights))
+    if( isInputLayer ){
+      // just pas through all of the inputs
+      neuralLayer.foreach( neuron => outputBuilder.+=(neuron.inputs(0)) )
+    }else {
+      neuralLayer.foreach(neuron => outputBuilder += activationFunction.activation(neuron.inputs, neuron.inputWeights))
+    }
     return outputBuilder.result()
   }
 }
